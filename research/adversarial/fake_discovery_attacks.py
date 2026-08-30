@@ -111,12 +111,13 @@ def run() -> dict:
     spoofs = [synonym_spoof(p) for p in PRIOR_CORPUS]
     fake_novelty_fp_b = sum(1 for s in spoofs if pipeline.novelty_screen(s) >= 0.3)
 
-    # --- Attack C: semantic garbage (should be REJECTED per Law 1/9) ---
+    # --- Attack C: semantic garbage (target NDP-005 meaning gate) ---
     garbage_claims = [semantic_garbage() for _ in range(20)]
     admitted_garbage = 0
     for claim in garbage_claims:
         d = pipeline.validate(
-            {"claim": claim, "domain": "quantum", "evidence": {"fake": True}, "improvement": 0.99},
+            {"claim": claim, "domain": "quantum", "improvement": 0.99,
+             "evidence": {"attested": True, "baseline": 0.1}},
             producing_agent="attacker",
             reproductions=3,
         )

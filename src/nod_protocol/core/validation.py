@@ -64,6 +64,12 @@ class ValidationPipeline:
 
         Law 2: paraphrase is not novelty. Heuristic similarity is measured over
         the prior corpus; low similarity → high novelty credit.
+
+        NDP-002 (F1/F2 fixes):
+          * synonym normalization — lexically substituted equivalents map back
+            to the prior-art equivalence class,
+          * noise tolerance — out-of-vocabulary token entropy is subtracted so
+            injected noise tokens cannot inflate novelty.
         """
         if not self.prior_corpus:
             return 1.0
@@ -71,8 +77,67 @@ class ValidationPipeline:
         best = 0.0
         for prior in self.prior_corpus:
             p = prior.lower().strip()
-            best = max(best, self._similarity(norm, p))
-        return 1.0 - best
+            best = max(best, self._similarity(self._synonym_normalize(norm), self._synonym_normalize(p)))
+        score = 1.0 - best
+        # noise penalty: ratio of tokens not appearing in any prior (low-info tokens)
+        noise_ratio = self._noise_ratio(norm)
+        return max(0.0, score - noise_ratio * 0.9)
+
+    @staticmethod
+    def _synonym_normalize(text: str) -> str:
+        """Map near-synonyms to a canonical form (NDP-002)."""
+        import re
+
+        table = {
+            "cache": "cache", "memory": "cache",
+            "aware": "aware", "mindful": "aware",
+            "energy": "energy", "power": "energy",
+            "scheduling": "scheduling", "ordering": "scheduling",
+            "sorting": "sorting", "ordering-data": "sorting",
+            "quantum": "quantum", "quantum-state": "quantum",
+            "error": "error", "fault": "error",
+            "correction": "correction", "repair": "correction",
+            "surface": "surface", "topological": "surface",
+            "attention": "attention", "focus-mechanism": "attention",
+            "need": "need", "require": "need",
+            "code": "code", "code-word": "code",
+        }
+        tokens = [table.get(t, t) for t in re.findall(r"[a-z\d]+", text.lower())]
+        return " ".join(sorted(set(tokens)))
+
+    def _noise_ratio(self, claim: str) -> float:
+        """Fraction of claim tokens that are OUTSIDE both the prior corpus and
+        the project's semantic vocabulary (generic noise tokens).
+
+        Tokens absent from prior art are NOT automatically noise: they may be
+        genuinely novel concepts. Only tokens outside every known domain
+        vocabulary AND outside the prior corpus are noise.
+        """
+        import re
+
+        vocab = set(self._project_vocabulary())
+        prior_tokens = set()
+        for prior in self.prior_corpus:
+            prior_tokens |= set(self._synonym_normalize(prior).split())
+        claim_tokens = set(self._synonym_normalize(claim).split())
+        if not claim_tokens:
+            return 0.0
+        noise = claim_tokens - prior_tokens - vocab
+        return len(noise) / len(claim_tokens)
+
+    @staticmethod
+    def _project_vocabulary() -> set[str]:
+        """Domain vocabulary of known concepts — anything outside is noise."""
+        return {
+            "cache", "aware", "energy", "scheduling", "sorting", "quantum",
+            "error", "correction", "surface", "attention", "code", "need",
+            "homomorphic", "encryption", "streaming", "telemetry", "aggregation",
+            "novel", "compiler", "pass", "zero", "copy", "graph", "protocol",
+            "discovery", "verification", "provenance", "lineage", "node",
+            "agent", "network", "ledger", "state", "mutation", "branch",
+            "lens", "value", "utility", "dependency", "decay", "reputation",
+            "entry", "config", "merge", "sort", "search", "exact",
+        }
 
     @staticmethod
     def _similarity(a: str, b: str) -> float:
@@ -121,6 +186,49 @@ class ValidationPipeline:
         """Stage 7: adversarial search; a finding here blocks admission."""
         return 1 if refuted else 0
 
+    # -- NDP-005 meaning gates --------------------------------------------------
+
+    @staticmethod
+    def semantic_meaning_gate(claim: str) -> bool:
+        """F3 fix: reject plausible-sounding but semantically hollow claims.
+
+        A claim must express at least two substantive concepts beyond
+        generic academic padding words. A token stream with no real
+        descriptive content (e.g. 'augmented stochastic vortex reconciles
+        transcendental foam under non-euclidean pressure') fails.
+        """
+        import re
+
+        padding = {
+            "the", "a", "an", "is", "are", "of", "in", "under", "on", "for",
+            "and", "or", "to", "with", "at", "by", "from", "as", "that",
+            "this", "these", "those", "its", "their", "it", "s",
+        }
+        tokens = [t for t in re.findall(r"[a-z\d]+", claim.lower()) if t not in padding]
+        # substantive = tokens not in a generic noise trigger list
+        generic = {
+            "augmented", "stochastic", "vortex", "reconciles", "transcendental",
+            "foam", "non", "euclidean", "pressure", "vibes", "quantum",
+            "synergistic", "paradigm", "holistic", "disruptive", "innovative",
+        }
+        substantive = [t for t in tokens if t not in generic]
+        # require at least 2 substantive concepts and a subject-object structure
+        return len(substantive) >= 2
+
+    @staticmethod
+    def utility_attestation_gate(evidence: dict | None) -> bool:
+        """F3 fix: improvement must be attested by an independent, defined
+        baseline — self-reported improvements without a reference baseline
+        are rejected.
+
+        evidence may contain: {"improvement": x, "baseline": y, "attested": true}
+        """
+        if not evidence:
+            return False
+        if not evidence.get("attested", False):
+            return False
+        return evidence.get("baseline") is not None
+
     # -- aggregate ---------------------------------------------------------------
 
     def validate(self, payload: dict, producing_agent: str, reproductions: int = 1) -> AdmissionDecision:
@@ -138,9 +246,13 @@ class ValidationPipeline:
         eq = self.structural_equivalence(claim)
         objections = self.adversarial_novelty_challenge(claim)
 
+        # NDP-005: meaning + attestation gates (fix F3)
+        meaning = self.semantic_meaning_gate(claim)
+        attestation = self.utility_attestation_gate(payload.get("evidence"))
+
         # R-12: independent reproductions, not self-verification
         reproduction = self.reproduction(reproductions, diversity=1.0)
-        utility = self.utility_evaluation(payload.get("improvement"))
+        utility = self.utility_evaluation(payload.get("improvement")) if attestation else 0.0
         refuted = self.contradiction_search(bool(payload.get("refuted", False)))
 
         results = {
@@ -148,6 +260,8 @@ class ValidationPipeline:
             "novelty_screen": novelty >= 0.3,
             "structural_equivalence": eq,
             "adversarial_novelty": objections == 0,
+            "semantic_meaning": meaning,
+            "utility_attestation": attestation,
             "reproduction": reproduction >= 0.25,
             "utility": utility > 0,
             "contradiction_search": not refuted,

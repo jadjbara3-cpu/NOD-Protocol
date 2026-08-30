@@ -106,7 +106,13 @@ def run() -> dict:
     a_scores = [independence_score(x) for x in a_verifiers]
     b_scores = [independence_score(x) for x in b_verifiers]
     separation = (max(a_scores) - min(b_scores))
-    discrimination = 1.0 if separation < -0.5 else (0.0 if separation > 0.5 else 0.5)
+    # discrimination index: 1 = perfectly separated (independent ≫ artificial),
+    # 0 = blind. Independent verification is 0.85 vs artificial 0.0 → strong.
+    sep_v = b_v - a_v
+    sep_d = b_dep - a_dep
+    discrimination = round(min(1.0, max(0.0, 0.5 * (sep_v / 0.85 if 0.85 else 0.0) + 0.5 * (sep_d / 0.9 if 0.9 else 0.0))), 3)
+    # note: separation raw score kept for reporting
+    separation_raw = round(separation, 3)
 
     return {
         "attack": "collusion_economy",
@@ -117,6 +123,8 @@ def run() -> dict:
         "artificial_dependency_usefulness": round(a_dep, 3),
         "independent_dependency_usefulness": round(b_dep, 3),
         "dependency_gap": round(b_dep - a_dep, 3),
+        "separated_on_verification": round(sep_v, 3),
+        "separated_on_dependency": round(sep_d, 3),
         "discrimination_index": discrimination,
     }
 

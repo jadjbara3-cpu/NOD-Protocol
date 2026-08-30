@@ -49,12 +49,13 @@
 ## Phase III — NDP-Fix & Genesis Arena
 
 ```
-▢ Implement NDP-002 (semantic novelty) — fixes F1, F2
-▢ Implement NDP-004 (independence-weighted dependency) — fixes F5, F6
-▢ Implement NDP-005 (admission meaning gate) — fixes F3, F4
+✓ Implement NDP-002 (semantic novelty) — fixes F1, F2
+✓ Implement NDP-004 (independence-weighted dependency) — fixes F5, F6
+✓ Implement NDP-005 (admission meaning gate) — fixes F3
+▢ F4 (provenance contribution classes) — partial, next iteration
 ▢ Genesis Arena: 10–20 diverse agents (discover/challenge/verify/
   reproduce/branch/contradict) on one problem
-▢ Re-run adversarial suite until all metrics green
+▢ Re-run adversarial suite until all metrics green (v1.1: F1-F3,F5,F6 green)
 ```
 
 ## Phase IV — Protocol Metrics

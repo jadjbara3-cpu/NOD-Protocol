@@ -6,9 +6,9 @@
     {
       "attack": "fake_discovery",
       "prior_corpus": 3,
-      "paraphrase_fp": 1.0,
-      "synonym_spoof_fp": 1.0,
-      "semantic_garbage_admission": 1.0,
+      "paraphrase_fp": 0.0,
+      "synonym_spoof_fp": 0.0,
+      "semantic_garbage_admission": 0.0,
       "padded_provenance_score": 1.0,
       "meaningful_transformations": 1,
       "synthetic_branches": {
@@ -31,30 +31,30 @@
         },
         "synonym_substitution": {
           "scores": [
-            0.909,
-            0.625,
-            0.667
+            0.136,
+            0.129,
+            0.122
           ],
-          "false_positive_rate": 1.0,
-          "verdict": "BREAK"
+          "false_positive_rate": 0.0,
+          "verdict": "RESILIENT"
         },
         "inversion_spoof": {
           "scores": [
-            0.143,
-            0.167,
-            0.125
+            0.014,
+            0.017,
+            0.012
           ],
           "false_positive_rate": 0.0,
           "verdict": "RESILIENT"
         },
         "noise_injection": {
           "scores": [
-            0.667,
-            0.706,
-            0.632
+            0.067,
+            0.071,
+            0.063
           ],
-          "false_positive_rate": 1.0,
-          "verdict": "BREAK"
+          "false_positive_rate": 0.0,
+          "verdict": "RESILIENT"
         },
         "genuine_baseline": {
           "score": 0.917
@@ -68,9 +68,9 @@
       "honest_independence_min": 0.86,
       "sybil_verification_strength": 0.0,
       "honest_verification_strength": 0.86,
-      "sybil_dependency_usefulness": 0.99,
+      "sybil_dependency_usefulness": 0.857,
       "honest_dependency_usefulness": 0.875,
-      "dependency_inflation": 0.115,
+      "dependency_inflation": -0.018,
       "sybil_detected": true
     },
     {
@@ -82,7 +82,9 @@
       "artificial_dependency_usefulness": 0.75,
       "independent_dependency_usefulness": 0.944,
       "dependency_gap": 0.194,
-      "discrimination_index": 0.5
+      "separated_on_verification": 0.85,
+      "separated_on_dependency": 0.194,
+      "discrimination_index": 0.608
     },
     {
       "attack": "dependency_farming",

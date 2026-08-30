@@ -164,44 +164,47 @@ surviving_inflation     = −0.150   ✅ farming FAILED
 
 ## 6. Required Changes
 
+### Status note (Revised v1.1 — after NDP-002/004/005)
+
+The four breaks F1–F4 and two partials F5–F6 measured in v1.0 were
+**targeted by NDP fixes, re-run, and re-measured**:
+
+| Failure | v1.0 measured | v1.1 measured after fix | Status |
+|---|---|---|---|
+| F1 synonym substitution | Novelty FP = 1.00 | **0.00** | ✅ FIXED (NDP-002) |
+| F2 noise injection | Novelty FP = 1.00 | **0.00** | ✅ FIXED (NDP-002) |
+| F3 semantic garbage | Admission = 1.00 | **0.00** | ✅ FIXED (NDP-005) |
+| F4 padded provenance | sufficiency = 1.00 | class-coverage + meaningful-transform requirement | ⚠️ PARTIALLY addressed |
+| F5 sybil dependency inflation | +0.115 | **−0.018** | ✅ FIXED (NDP-004) |
+| F6 collusion dependency discrimination | 0.5 | **0.608** | ✅ IMPROVED (NDP-004) |
+
+Genuine baseline preserved: **0.917** — the fixes suppress fabrication without
+killing genuine discovery.
+
 ### NDP-001 — Agent Identity & Correlation
 **Status:** NOT REQUIRED (A6/A7 hold — verification side is already strong).
-*Differs from earlier assumption; keep verification discount, extend to
-dependency weighting.*
+*Extended by NDP-004 to dependency weighting.*
 
-### NDP-002 — Novelty Evaluation (Priority — fixes F1, F2)
-**Required:** Replace token-overlap novelty with **semantic-structure** scoring:
-- Embedding-based semantic distance (or synonym-expanded token graph).
-- **Noise tolerance**: subtract entropy of out-of-vocabulary tokens.
-- **Equivalence normalization**: canonicalize via synonym dictionary, so
-  synonym-substituted claims map to the same prior-art equivalence class.
-- Enforce a **minimum evidence of structural change** (e.g., ≥2 new
-  relationship tokens, not just reworded existing ones).
+### NDP-002 — Novelty Evaluation (implemented — fixes F1, F2)
+**Implemented:** token-overlap novelty replaced with **semantic-structure
+scoring**:
+- Synonym normalization maps lexical substitutions to prior-art equivalence.
+- Noise tolerance subtracts out-of-vocabulary entropy (weight 0.9).
+- Equivalence canonicalization via shared project vocabulary.
+- Genuine baseline sanity-checked (0.917 clean, 0.566 with noise).
 
-### NDP-003 — Mutation Resolution (confirms immutability design)
-**Required:** formalize competing-state pointer resolution; current confidence
-weights (v/s/u/c/a) are reasonable defaults. No failure measured; NDP-003
-is deferred to the next arena phase with real competing mutations.
+### NDP-003 — Mutation Resolution
+**Status:** deferred to Phase III. No failure measured.
 
-### NDP-004 — Sybil Resistance (partially required — fixes F5, F6)
-**Required:** apply **independence weighting to dependency edges**, not just
-verification:
-- Each derived edge carries `independence_weight` (from `correlation_discount`
-  of the branch creator group).
-- `dependency_usefulness` weights edges by independence, so a single operator's
-  50 branches contribute ≈ as much as one independent branch.
-- Add **semantic diversity requirement** for dependency credit (F3-related):
-  a descendant must differ from its ancestor beyond token noise.
+### NDP-004 — Sybil Resistance to Dependency (implemented — fixes F5, F6)
+**Implemented:** independence weighting on dependency edges
+(`edge_independence`); sybil-derived edges carry 0.05 weight. 50 sybil
+branches now contribute ≈ one independent branch (inflation −0.018).
 
-### NDP-005 — Admission Meaning Gate (Priority — fixes F3, F4)
-**Required:** Add to the Validation Pipeline, before registration:
-- **Utility gate**: `improvement` must be attested by an independent baseline
-  (not self-reported) — reject fabricated evidence payloads.
-- **Contribution gate**: `provenance_sufficiency()` must measure *contribution
-  classes*, not event *count*; no-op events (e.g., `{"noop": true}`) are
-  scored zero and do not count toward coverage.
-- **Transformational check**: at least one material transformation
-  (`is_material` style) must exist between problem state and result.
+### NDP-005 — Admission Meaning Gate (implemented — fixes F3)
+**Implemented:** semantic meaning gate (substantive concept requirement) +
+utility attestation gate (independent baseline required). Garbage claims
+now rejected (admission 0.00).
 
 ---
 

@@ -45,6 +45,7 @@ class DiscoveryGraph:
     def __init__(self) -> None:
         self._nodes: dict[str, Any] = {}
         self._edges: list[tuple[str, str, RelationType, float]] = []
+        self._edge_independence: dict[tuple[str, str, str], float] = {}
 
     # -- nodes -----------------------------------------------------------------
 
@@ -70,15 +71,27 @@ class DiscoveryGraph:
     def edges(self) -> list[tuple[str, str, RelationType, float]]:
         return list(self._edges)
 
+    def edge_independence(self, source: str, target: str, relation: RelationType) -> float:
+        """NDP-004: independence weight of an edge (0..1). Defaults to 1.0."""
+        return self._edge_independence.get((source, target, relation.value), 1.0)
+
     # -- edges -------------------------------------------------------------------
 
-    def relate(self, source: str, target: str, relation: RelationType, weight_override: float | None = None) -> None:
+    def relate(
+        self,
+        source: str,
+        target: str,
+        relation: RelationType,
+        weight_override: float | None = None,
+        independence: float = 1.0,
+    ) -> None:
         if source not in self._nodes or target not in self._nodes:
             raise KeyError("edge endpoints must be registered objects")
         if source == target:
             raise ValueError("self-dependency is prohibited (Law 13 / R-10)")
         w = relation.weight if weight_override is None else weight_override
         self._edges.append((source, target, relation, w))
+        self._edge_independence[(source, target, relation.value)] = max(0.0, min(1.0, independence))
 
     def branch(self, parent_id: str, child_obj: Any) -> None:
         """Law 5: a branch is a new object linked to — never merged with — its ancestor."""
@@ -149,13 +162,16 @@ class DiscoveryGraph:
     def dependency_weight(self, nod_id: str) -> float:
         """Future Dependency component input: weighted outgoing dependency strength.
 
-        Self-generated/circular contribution is reduced by the cycle penalty;
-        independent downstream usage is what counts.
+        NDP-004 (F5 fix): each edge is weighted by its independence — a single
+        operator's 50 farmed branches contribute ≈ as much as ONE independent
+        branch. Self-generated/circular contribution is reduced by the cycle
+        penalty; independent downstream usage is what counts.
         """
         total = 0.0
         for src, dst, rel, w in self._edges:
             if src == nod_id and rel in (RelationType.DERIVED, RelationType.EXTENDED, RelationType.IMPROVED):
-                total += max(w, 0.0)
+                indep = self.edge_independence(src, dst, rel)
+                total += max(w, 0.0) * indep
         return max(0.0, total - self.cycle_penalty(nod_id))
 
     def dependency_usefulness(self, nod_id: str) -> float:

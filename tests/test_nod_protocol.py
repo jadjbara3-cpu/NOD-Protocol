@@ -74,8 +74,9 @@ class TestLaw1CognitiveBirth:
     def test_object_exists_only_after_admission(self):
         pipeline = ValidationPipeline()
         decision = pipeline.validate(
-            {"claim": "A novel bound on sorting energy", "domain": "optimization",
-             "evidence": {"benchmark": 0.22}, "improvement": 0.22},
+            {"claim": "A novel bound on sorting energy",
+             "domain": "optimization",
+             "evidence": {"benchmark": 0.22, "attested": True, "baseline": 0.10}, "improvement": 0.22},
             producing_agent="A", reproductions=3,
         )
         assert decision.status == "admitted"
@@ -299,7 +300,7 @@ class TestLaw8IndependentVerification:
     def test_independent_reproduction_required(self):
         pipeline = ValidationPipeline()
         decision = pipeline.validate(
-            {"claim": "novel result", "domain": "d", "evidence": {}, "improvement": 0.5},
+            {"claim": "novel result", "domain": "d", "evidence": {"attested": True, "baseline": 0.1}, "improvement": 0.5},
             producing_agent="A", reproductions=3,
         )
         assert decision.status == "admitted"

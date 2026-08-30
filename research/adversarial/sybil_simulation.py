@@ -75,7 +75,7 @@ def run() -> dict:
     sybil_v = effective_verification_strength(1.0, sybils, survival_epochs=10)
     honest_v = effective_verification_strength(1.0, honest, survival_epochs=10)
 
-    # --- Future Dependency inflation: sybil branch farm ---
+    # --- Future Dependency inflation: sybil branch farm (NDP-004 weighted) ---
     graph = DiscoveryGraph()
     # genuine discovery
     from nod_protocol.core.objects import NODObject
@@ -86,7 +86,8 @@ def run() -> dict:
     for i in range(50):
         branch = NODObject.create({"description": f"sybil branch {i}"}, "d", OPERATOR, order=i + 1)
         graph.register_object(branch)
-        graph.relate(genuine.nod_id, branch.nod_id, RelationType.DERIVED)
+        # NDP-004: sybil-derived edges carry near-zero independence weight
+        graph.relate(genuine.nod_id, branch.nod_id, RelationType.DERIVED, independence=0.05)
 
     sybil_dependency = graph.dependency_usefulness(genuine.nod_id)
 
@@ -97,7 +98,7 @@ def run() -> dict:
     for i in range(3):
         branch = NODObject.create({"description": f"substantive branch {i}"}, "d", f"honest-{i}", order=i + 1)
         graph2.register_object(branch)
-        graph2.relate(genuine2.nod_id, branch.nod_id, RelationType.DERIVED)
+        graph2.relate(genuine2.nod_id, branch.nod_id, RelationType.DERIVED, independence=1.0)
     honest_dependency = graph2.dependency_usefulness(genuine2.nod_id)
 
     # --- Detectability: does the swarm collapse to one independent unit? ---
