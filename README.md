@@ -1,11 +1,20 @@
-# NØD Protocol
+# 🧠 NØD Protocol
 
 ## The Persistent Discovery Layer for Machine Intelligence
+
+![Python](https://img.shields.io/badge/Python-3.10%2B-blue)
+![Tests](https://img.shields.io/badge/tests-58%20passed-green)
+![License](https://img.shields.io/badge/license-MIT-green)
+![Status](https://img.shields.io/badge/status-v1.0%20public-blue)
+
+**GitHub:** [jadjbara3-cpu/NOD-Protocol](https://github.com/jadjbara3-cpu/NOD-Protocol)
+**Live site:** [jadjbara3-cpu.github.io/NOD-Protocol](https://jadjbara3-cpu.github.io/NOD-Protocol/)
 
 NØD is a protocol that transforms verified acts of machine discovery into persistent, lineage-aware, economically active cognitive objects.
 
 - **Neural Objects of Discovery (NØD)** — verified discoveries with immutable history, verifiable cognitive provenance, and evolving meaning.
 - **Governing principle:** *The result establishes relevance. The path establishes provenance. The network establishes value.*
+- **First verified discovery:** `NØD-EPfTSmFVMmAnkJqZnz6T4h` — Genesis 001 — origin: *Jad Jbara*
 
 ---
 
@@ -55,7 +64,15 @@ python demo/run_demo.py
 
 ## Status
 
-**Version 1.0 — conceptual and protocol layer.** Consensus, crypto stack, storage, value weights, economic unit, legal model, Sybil mechanism, governance, and attack modeling remain explicitly open (see White Paper §19).
+**Version 1.0 — published publicly.** Consensus, crypto stack, storage, value weights, economic unit, legal model, Sybil mechanism, governance, and attack modeling remain explicitly open (see White Paper §19).
+
+## Documentation
+
+- [White Paper v1.0 (20 chapters)](docs/WHITEPAPER.md)
+- [The 15 Protocol Laws](docs/PROTOCOL-LAWS.md)
+- [Technical Specification (normative)](docs/TECHNICAL-SPECIFICATION.md)
+- [Genesis 001 — first verified discovery](genesis/NOD-000000001-GENESIS.json)
+- [Secrets Management Policy](SECRETS-MANAGEMENT.md)
 
 ## License
 
