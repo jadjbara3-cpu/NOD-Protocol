@@ -1,0 +1,40 @@
+{
+  "protocol": "NØD Protocol",
+  "full_name": "Neural Objects of Discovery",
+  "identity": "The Persistent Discovery Layer for Machine Intelligence",
+  "version": "1.0",
+  "manifest_version": "1.0",
+  "genesis_object": "NØD-EPfTSmFVMmAnkJqZnz6T4h",
+  "genesis_author": "Jad Jbara",
+  "genesis_attribution": "Jad Jbara (jadjbara3-cpu) — Genesis Originator, NOT a permanent protocol authority",
+  "successor_rule": "No individual, repository, company, domain, server, or implementation is required for protocol existence or continuity.",
+  "content_identity": {
+    "method": "SHA-256 hex lowercase over canonical file bytes",
+    "documents": {
+      "docs/WHITEPAPER.md": "fc550ae14921f55e",
+      "docs/PROTOCOL-LAWS.md": "3c10053220ac71f6",
+      "docs/TECHNICAL-SPECIFICATION.md": "0802490e3bfc7e74",
+      "docs/NOD-001-ADVERSARIAL-MODEL.md": "272108d143679ea0",
+      "src/nod_protocol/__init__.py": "1e29b1a3dad2adf6",
+      "src/nod_protocol/core/provenance.py": "4fe544febca1dce4",
+      "src/nod_protocol/core/objects.py": "79cb84d73eee395e",
+      "src/nod_protocol/core/value.py": "79273b02ea521534",
+      "src/nod_protocol/core/lineage.py": "a71b8055d7d5ef1f",
+      "src/nod_protocol/core/validation.py": "cc38ac1ff7582975",
+      "src/nod_protocol/anti_manipulation.py": "2dab9bd66b3be0ad",
+      "src/nod_protocol/crypto/commitments.py": "2af25f3b7fbba90d",
+      "tests/test_nod_protocol.py": "fba5676b72830d68",
+      "tests/test_adversarial.py": "0978280099077a13",
+      "demo/run_demo.py": "5e212c76437d2439",
+      "research/adversarial/suite_runner.py": "362bded095beb280"
+    },
+    "note": "Each hash is a full SHA-256; only the first 16 hex chars are shown here. Verify with: Get-FileHash -Algorithm SHA256 <file>"
+  },
+  "principles": [
+    "The NØD Protocol must be identifiable independently of any domain, company, server, repository, or individual.",
+    "The result establishes relevance. The path establishes provenance. The network establishes value.",
+    "No single party can end it.",
+    "Genesis attribution persists; administrative authority is not permanent."
+  ],
+  "created_at": "2026-08-30T00:00:00Z"
+}

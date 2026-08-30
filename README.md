@@ -69,10 +69,26 @@ python demo/run_demo.py
 ## Documentation
 
 - [White Paper v1.0 (20 chapters)](docs/WHITEPAPER.md)
-- [The 15 Protocol Laws](docs/PROTOCOL-LAWS.md)
+- [The 16 Protocol Laws](docs/PROTOCOL-LAWS.md) — includes **Law 16: Protocol Survival**
 - [Technical Specification (normative)](docs/TECHNICAL-SPECIFICATION.md)
+- [NOD-001 — Adversarial Discovery Model](docs/NOD-001-ADVERSARIAL-MODEL.md)
+- [NOD-002 — Protocol Survival & Persistence Architecture](docs/NOD-002-PROTOCOL-SURVIVAL.md)
+- [Final Roadmap](docs/ROADMAP.md)
+- [Genesis Manifest — canonical content identity](NOD-GENESIS-MANIFEST.json)
 - [Genesis 001 — first verified discovery](genesis/NOD-000000001-GENESIS.json)
 - [Secrets Management Policy](SECRETS-MANAGEMENT.md)
+
+## Independence
+
+NØD is content-addressed and survives its mirrors:
+
+> **The discovery survives the discoverer. The lineage survives the origin. The network survives the node.**
+
+Verify canonical files locally:
+
+```bash
+PYTHONPATH=src python node/nod_node.py --verify-manifest
+```
 
 ## License
 

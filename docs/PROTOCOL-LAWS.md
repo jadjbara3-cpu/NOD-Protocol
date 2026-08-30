@@ -156,6 +156,18 @@ Each law is presented as: Formal Statement → Mechanism it implies → Failure 
 
 ---
 
+## Law 16 — Law of Protocol Survival
+
+**Statement:** The existence, operation, validity, and historical continuity of the NØD Protocol shall not depend on the continued existence, availability, identity, permission, or operation of any single individual, repository, company, domain, server, or implementation.
+
+**Mechanism:** The protocol shall support independent implementations; replicated specifications; cryptographic content identity; independent node operation; forkable governance; and distributed archival persistence.
+
+**Prevents:** Founder disappearance; repository deletion; company shutdown; domain expiration; infrastructure censorship; single-point institutional failure.
+
+**Operative framing:** *No single party can end it.* Genesis attribution persists; administrative authority is not permanent. The discovery survives the discoverer. The lineage survives the origin. The network survives the node.
+
+---
+
 ## Governing Principle
 
 > **The result establishes relevance. The path establishes provenance. The network establishes value.**
