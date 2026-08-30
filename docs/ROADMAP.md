@@ -88,10 +88,12 @@
 ## Phase D — Discovery Ledger & Network
 
 ```
-▢ NØD Node → multi-node synchronization
-▢ Distributed replicable ledger (Genesis → Objects → Provenance →
-  Lineage → State Updates) — content-addressed, not necessarily blockchain
-▢ Independent node operation without any central host
+✓ NØD-Sync core: distributed cognitive synchronization layer
+  (GlobalState + state_root + fork-aware resolution + eventual convergence)
+✓ Open protocol surface: any agent can query/join/verify from scratch
+✓ Mult-node simulation (JP/JO/BR) converges; 90/90 tests pass
+▢ Real transport (sockets / gossip / actual NØD nodes in the wild)
+▢ Cognitive Navigation Layer (what exists related to X? ranked verified)
 ```
 
 ## Phase E — Terminal Test

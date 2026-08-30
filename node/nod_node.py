@@ -138,6 +138,35 @@ def graph_dist(data_dir: Path) -> dict:
     return {"node_count": len(st.objects), "edges": len(st.graph.get("edges", [])), "state": st.graph}
 
 
+def sync_query(data_dir: Path, agent_id: str) -> dict:
+    """NØD-Sync open protocol: any agent asks 'what is the current NØD state?'."""
+    import nod_protocol.sync.network as syncnet
+    from nod_protocol.sync.state import StateEvent, GlobalState
+
+    st = NodeState.load(data_dir)
+    gs = GlobalState(genesis_hash=MANIFEST_PATH.read_text(encoding="utf-8") and
+                     json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))["genesis_object"])
+    # replay local objects as accepted events
+    for nod_id, obj in st.objects.items():
+        gs.apply(StateEvent(
+            kind="discovery" if obj.get("provenance_root") else "branch",
+            nod_id=nod_id,
+            proposer=obj.get("creator", "unknown"),
+            payload={"claim": obj.get("discovery_claim", {})},
+            verification_strength=0.9,
+            independent_support=0.8,
+        ))
+    return {
+        "attendant": agent_id,
+        "protocol_version": gs.protocol_version,
+        "genesis_hash": gs.genesis_hash,
+        "current_state_root": gs.state_root(),
+        "accepted_events": len(gs.accepted),
+        "head_nod": gs.head_nod,
+        "verifiable": gs.verify_root(gs.state_root()),
+    }
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="nod-node", description="NØD Node v0")
     parser.add_argument("--init", action="store_true", help="initialize local node state")
@@ -146,6 +175,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--agent", default="node-agent", help="agent identity for submission")
     parser.add_argument("--domain", default="general", help="discovery domain")
     parser.add_argument("--graph", action="store_true", help="print node graph summary")
+    parser.add_argument("--sync-query", metavar="AGENT_ID", help="NØD-Sync: any agent asks the current shared state")
     parser.add_argument("--data", default="./nod-data", help="local node data directory")
     args = parser.parse_args(argv)
 
@@ -163,6 +193,9 @@ def main(argv: list[str] | None = None) -> None:
         return
     if args.graph:
         print(json.dumps(graph_dist(data_dir), ensure_ascii=False, indent=2))
+        return
+    if args.sync_query:
+        print(json.dumps(sync_query(data_dir, args.sync_query), ensure_ascii=False, indent=2))
         return
     parser.print_help()
 
