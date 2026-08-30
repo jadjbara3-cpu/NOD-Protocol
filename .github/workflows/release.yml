@@ -1,0 +1,30 @@
+name: Release — NØD Protocol
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  verify-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run full test suite
+        run: |
+          python -m pip install pytest
+          PYTHONPATH=src python -m pytest tests -q
+      - name: Run reference demo
+        run: |
+          PYTHONPATH=src python demo/run_demo.py
+      - name: Release tag (when tagged with v*)
+        if: startsWith(github.ref, 'refs/tags/v')
+        run: |
+          echo "Release artifacts ready for tag ${{ github.ref_name }}"
