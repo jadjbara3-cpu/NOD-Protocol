@@ -167,13 +167,19 @@ def sync_query(data_dir: Path, agent_id: str) -> dict:
     }
 
 
-def live_serve(node_id: str, port: int, genesis_hash: str = "") -> None:
-    """REAL transport: run a NØD node as a TCP server until interrupted."""
+def live_serve(node_id: str, port: int, genesis_hash: str = "", host: str = "0.0.0.0") -> None:
+    """REAL transport: run a NØD node as a TCP server until interrupted.
+
+    Defaults to 0.0.0.0 so the node is reachable from other hosts (Docker,
+    VPS, internet). Set NOD_HOST env to override (e.g. 127.0.0.1 for local).
+    """
+    import os
+    host = os.environ.get("NOD_HOST", host)
     from nod_protocol.sync.transport import PeerServer
 
-    srv = PeerServer(node_id=node_id, host="127.0.0.1", port=port, genesis_hash=genesis_hash)
+    srv = PeerServer(node_id=node_id, host=host, port=port, genesis_hash=genesis_hash)
     port = srv.start()
-    print(f"NØD node '{node_id}' serving on 127.0.0.1:{port} (state root: {srv.state.state_root()[:16]})")
+    print(f"NØD node '{node_id}' serving on {host}:{port} (state root: {srv.state.state_root()[:16]})")
     print("Press Ctrl+C to stop.")
     try:
         import time

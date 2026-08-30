@@ -8,7 +8,10 @@
 ![Status](https://img.shields.io/badge/status-v1.0%20public-blue)
 
 **GitHub:** [jadjbara3-cpu/NOD-Protocol](https://github.com/jadjbara3-cpu/NOD-Protocol)
+**Mirror (public):** [jadjbara1/NOD-Protocol-Mirror](https://gitlab.com/jadjbara1/NOD-Protocol-Mirror)
 **Live site:** [jadjbara3-cpu.github.io/NOD-Protocol](https://jadjbara3-cpu.github.io/NOD-Protocol/)
+**Archive (Wayback):** [20260830190335 snapshot](https://web.archive.org/web/20260830190335/https://github.com/jadjbara3-cpu/NOD-Protocol)
+**Local archive:** `archives/` (git bundle + timestamped zip)
 
 NØD is a protocol that transforms verified acts of machine discovery into persistent, lineage-aware, economically active cognitive objects.
 
