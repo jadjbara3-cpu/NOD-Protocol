@@ -1,0 +1,249 @@
+{
+  "genesis": true,
+  "registrar": "NØD Protocol — genesis tool",
+  "registered_at": "2026-08-30T15:50:35.382784+00:00",
+  "object": {
+    "nod_id": "NØD-EPfTSmFVMmAnkJqZnz6T4h",
+    "genesis_state": "G0",
+    "discovery_claim": {
+      "description": "NØD Protocol v1.0 — a persistent discovery layer that transforms verified acts of machine discovery into persistent, lineage-aware, economically active cognitive objects.",
+      "domain": "machine discovery infrastructure",
+      "evidence_ref": "58/58 pytest passed; demo/run_demo.py complete; CLI verified"
+    },
+    "discovery_domain": "machine discovery infrastructure",
+    "creator": "Jad Jbara (jadjbara3-cpu)",
+    "provenance_root": "402208b13efd71d25f2b2590f7f858689653fea4bb6e8164b4bb96ded2ae4658",
+    "provenance_event_ids": [
+      "402208b13efd71d25f2b2590f7f858689653fea4bb6e8164b4bb96ded2ae4658",
+      "3bdd63f7a5c0fc778f5ac868c60253b9ee0d144ad309cd589392e7ab95cc1b24",
+      "49073515e4e1c2e12b883413a165f1ddc51071bbfc0f8518fb8940920d3e3848",
+      "bd37111b3bfd28cd3edf80f078c5c467f43843bf64c69563517720ebc957ce5d",
+      "f0e2dcefaa6b597ed52420a58383a6d1dbe2145c2c65a4871bfe7cb4d00c35a1",
+      "bc7848085b430e0d451134afe0eff7cad55bb9fdff65ab8c6303d099b134a1c8",
+      "ad7c21c027b46d4a13d460bdca71859e734cb598f2c6b3d0756aa0670450ad7a"
+    ],
+    "verification_status": "verified",
+    "lineage_references": [],
+    "current_state_pointer": "G0",
+    "rights_registry_reference": {
+      "origin_positions": [
+        "Jad Jbara (jadjbara3-cpu)"
+      ],
+      "discovery_credit": [
+        "Jad Jbara (jadjbara3-cpu)"
+      ],
+      "lineage_rights": [],
+      "economic_participation": {
+        "originator": 1.0
+      },
+      "lens_usage": []
+    },
+    "value_metrics_reference": {},
+    "protocol_version": "1.0"
+  },
+  "provenance_chain": [
+    {
+      "event_id": "402208b13efd71d25f2b2590f7f858689653fea4bb6e8164b4bb96ded2ae4658",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "problem_state",
+      "parent_event_ids": [],
+      "agent_identity": "genesis-001",
+      "agent_signature": "1d1afaf9a1d0f21227e43930482e7779e81edd0e16f96bd35147e0e288b4c8e7",
+      "order": 0,
+      "content_hash": "402208b13efd71d25f2b2590f7f858689653fea4bb6e8164b4bb96ded2ae4658",
+      "canonical": {
+        "event_type": "problem_state",
+        "payload": {
+          "problem": "Machine intelligence produces discoveries that vanish; no native asset records them."
+        },
+        "agent": "genesis-001",
+        "order": 0,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [],
+        "disclosure": "open",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "open",
+      "protocol_version": "1.0"
+    },
+    {
+      "event_id": "3bdd63f7a5c0fc778f5ac868c60253b9ee0d144ad309cd589392e7ab95cc1b24",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "committed_hypothesis",
+      "parent_event_ids": [
+        "402208b13efd71d25f2b2590f7f858689653fea4bb6e8164b4bb96ded2ae4658"
+      ],
+      "agent_identity": "genesis-001",
+      "agent_signature": "95a7031ac9b4cdb6315e63f93ed60fab796d74c7f9dc7ebc5aab11a507ba7ebc",
+      "order": 1,
+      "content_hash": "3bdd63f7a5c0fc778f5ac868c60253b9ee0d144ad309cd589392e7ab95cc1b24",
+      "canonical": {
+        "event_type": "committed_hypothesis",
+        "payload": {
+          "hypothesis": "A verified discovery, with verifiable provenance and lineage, can be the native asset."
+        },
+        "agent": "genesis-001",
+        "order": 1,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [
+          "402208b13efd71d25f2b2590f7f858689653fea4bb6e8164b4bb96ded2ae4658"
+        ],
+        "disclosure": "committed_only",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "committed_only",
+      "protocol_version": "1.0"
+    },
+    {
+      "event_id": "49073515e4e1c2e12b883413a165f1ddc51071bbfc0f8518fb8940920d3e3848",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "test",
+      "parent_event_ids": [
+        "3bdd63f7a5c0fc778f5ac868c60253b9ee0d144ad309cd589392e7ab95cc1b24"
+      ],
+      "agent_identity": "genesis-001",
+      "agent_signature": "5f86142904ee0d8573c8e039997686c30118549a0a85bb65a5843a1dd6296f1e",
+      "order": 2,
+      "content_hash": "49073515e4e1c2e12b883413a165f1ddc51071bbfc0f8518fb8940920d3e3848",
+      "canonical": {
+        "event_type": "test",
+        "payload": {
+          "test": "pytest tests/test_nod_protocol.py",
+          "result": "58 passed"
+        },
+        "agent": "genesis-001",
+        "order": 2,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [
+          "3bdd63f7a5c0fc778f5ac868c60253b9ee0d144ad309cd589392e7ab95cc1b24"
+        ],
+        "disclosure": "open",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "open",
+      "protocol_version": "1.0"
+    },
+    {
+      "event_id": "bd37111b3bfd28cd3edf80f078c5c467f43843bf64c69563517720ebc957ce5d",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "test",
+      "parent_event_ids": [
+        "49073515e4e1c2e12b883413a165f1ddc51071bbfc0f8518fb8940920d3e3848"
+      ],
+      "agent_identity": "genesis-001",
+      "agent_signature": "2da6f3c30edd7182b48e971a27c27d3516f92e9993ea010829110fa7b4c04e1e",
+      "order": 3,
+      "content_hash": "bd37111b3bfd28cd3edf80f078c5c467f43843bf64c69563517720ebc957ce5d",
+      "canonical": {
+        "event_type": "test",
+        "payload": {
+          "test": "demo/run_demo.py",
+          "result": "all laws exercised end-to-end"
+        },
+        "agent": "genesis-001",
+        "order": 3,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [
+          "49073515e4e1c2e12b883413a165f1ddc51071bbfc0f8518fb8940920d3e3848"
+        ],
+        "disclosure": "open",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "open",
+      "protocol_version": "1.0"
+    },
+    {
+      "event_id": "f0e2dcefaa6b597ed52420a58383a6d1dbe2145c2c65a4871bfe7cb4d00c35a1",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "result",
+      "parent_event_ids": [
+        "bd37111b3bfd28cd3edf80f078c5c467f43843bf64c69563517720ebc957ce5d"
+      ],
+      "agent_identity": "genesis-001",
+      "agent_signature": "6a272a660dc8a9a22716ccd0ed5564212bf6d1cd9c0922cfcdd8e80a0708686e",
+      "order": 4,
+      "content_hash": "f0e2dcefaa6b597ed52420a58383a6d1dbe2145c2c65a4871bfe7cb4d00c35a1",
+      "canonical": {
+        "event_type": "result",
+        "payload": {
+          "result": "Verifiable Cognitive Provenance + Cognitive State Layer + composite value all operational."
+        },
+        "agent": "genesis-001",
+        "order": 4,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [
+          "bd37111b3bfd28cd3edf80f078c5c467f43843bf64c69563517720ebc957ce5d"
+        ],
+        "disclosure": "open",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "open",
+      "protocol_version": "1.0"
+    },
+    {
+      "event_id": "bc7848085b430e0d451134afe0eff7cad55bb9fdff65ab8c6303d099b134a1c8",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "transformation",
+      "parent_event_ids": [
+        "f0e2dcefaa6b597ed52420a58383a6d1dbe2145c2c65a4871bfe7cb4d00c35a1"
+      ],
+      "agent_identity": "genesis-001",
+      "agent_signature": "61060d5704b09cbd764f7853f5aad30b19a12da01b09019eed3df87a3599fb6d",
+      "order": 5,
+      "content_hash": "bc7848085b430e0d451134afe0eff7cad55bb9fdff65ab8c6303d099b134a1c8",
+      "canonical": {
+        "event_type": "transformation",
+        "payload": {
+          "note": "From conceptual white paper (v0.1) to corrected spec (v1.0) to working reference implementation."
+        },
+        "agent": "genesis-001",
+        "order": 5,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [
+          "f0e2dcefaa6b597ed52420a58383a6d1dbe2145c2c65a4871bfe7cb4d00c35a1"
+        ],
+        "disclosure": "open",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "open",
+      "protocol_version": "1.0"
+    },
+    {
+      "event_id": "ad7c21c027b46d4a13d460bdca71859e734cb598f2c6b3d0756aa0670450ad7a",
+      "nod_id": "NØD-GENESIS-001",
+      "event_type": "verification",
+      "parent_event_ids": [
+        "bc7848085b430e0d451134afe0eff7cad55bb9fdff65ab8c6303d099b134a1c8"
+      ],
+      "agent_identity": "genesis-001",
+      "agent_signature": "03e5829456a30f8c666d9d8adff8730fdf21fcd1911c2166a29f965d5c0599ed",
+      "order": 6,
+      "content_hash": "ad7c21c027b46d4a13d460bdca71859e734cb598f2c6b3d0756aa0670450ad7a",
+      "canonical": {
+        "event_type": "verification",
+        "payload": {
+          "verifiers": [
+            "independent reproduction via deterministic tests",
+            "CLI smoke tests"
+          ],
+          "outcome": "survived"
+        },
+        "agent": "genesis-001",
+        "order": 6,
+        "nod_id": "NØD-GENESIS-001",
+        "parents": [
+          "bc7848085b430e0d451134afe0eff7cad55bb9fdff65ab8c6303d099b134a1c8"
+        ],
+        "disclosure": "open",
+        "protocol_version": "1.0"
+      },
+      "disclosure_status": "open",
+      "protocol_version": "1.0"
+    }
+  ],
+  "verification_evidence": {
+    "pytest": "58 passed",
+    "demo": "end-to-end complete",
+    "cli": "init/submit/value/graph/arena verified"
+  }
+}
