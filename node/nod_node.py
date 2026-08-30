@@ -207,6 +207,24 @@ def live_peer(node_id: str, host: str, port: int, submit: str | None, query_only
     return result
 
 
+def navigate(data_dir: Path, query: str, axis: str = "most_verified", top_k: int = 5) -> dict:
+    """Cognitive navigation: 'what discoveries relate to X?' (ranked, verified)."""
+    from nod_protocol.sync.state import StateEvent, GlobalState
+    from nod_protocol.navigation import CognitiveNavigator
+
+    st = NodeState.load(data_dir)
+    gs = GlobalState(genesis_hash="local")
+    for order, (nod_id, obj) in enumerate(st.objects.items()):
+        gs.apply(StateEvent(
+            kind="discovery", nod_id=nod_id, proposer=obj.get("creator", ""),
+            payload={"claim": str(obj.get("discovery_claim", {}))},
+            verification_strength=0.9, independent_support=0.8, order=order,
+        ))
+    nav = CognitiveNavigator(gs)
+    result = nav.navigate(query, axis=axis, top_k=top_k)
+    return result.to_dict()
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="nod-node", description="NØD Node v0")
     parser.add_argument("--init", action="store_true", help="initialize local node state")
@@ -221,6 +239,10 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--peer-port", metavar="PORT", type=int, help="NØD-Sync: peer port for --peer")
     parser.add_argument("--peer-submit", metavar="CLAIM", help="NØD-Sync: submit a claim to a live peer")
     parser.add_argument("--peer-query", action="store_true", help="NØD-Sync: query live peer state")
+    parser.add_argument("--navigate", metavar="QUERY", help="Cognitive Navigation: what relates to QUERY?")
+    parser.add_argument("--axis", default="most_verified",
+                        choices=["most_verified", "most_used", "fastest_growing", "most_foundational"])
+    parser.add_argument("--top-k", type=int, default=5, help="navigation result count")
     parser.add_argument("--data", default="./nod-data", help="local node data directory")
     args = parser.parse_args(argv)
 
@@ -250,6 +272,10 @@ def main(argv: list[str] | None = None) -> None:
         result = live_peer(args.agent or "client", args.peer_host, args.peer_port,
                            args.peer_submit, args.peer_query)
         print(json.dumps(result, ensure_ascii=False, indent=2))
+        return
+    if args.navigate:
+        print(json.dumps(navigate(data_dir, args.navigate, args.axis, args.top_k),
+                         ensure_ascii=False, indent=2))
         return
     parser.print_help()
 

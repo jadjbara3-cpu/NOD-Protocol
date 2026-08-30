@@ -1,0 +1,20 @@
+services:
+  nod-node:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile
+    container_name: nod-node
+    ports:
+      - "8642:8642"
+    environment:
+      NOD_HOST: "0.0.0.0"
+      NOD_PORT: "8642"
+    volumes:
+      # TLS certificates for public deployment (host:container)
+      - ./certs:/opt/nod/certs:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket;s=socket.create_connection(('127.0.0.1',8642),3);print('ok')"]
+      interval: 30s
+      timeout: 5s
+      retries: 3

@@ -90,6 +90,22 @@ Verify canonical files locally:
 PYTHONPATH=src python node/nod_node.py --verify-manifest
 ```
 
+## Network & Navigation
+
+```bash
+# Run a real TCP node (TLS if certs provided)
+PYTHONPATH=src python node/nod_node.py --serve 8642 --agent public-node
+
+# Any agent connects, queries the shared state, submits
+PYTHONPATH=src python node/nod_node.py --peer-host 127.0.0.1 --peer-port 8642 --peer-query
+PYTHONPATH=src python node/nod_node.py --peer-host 127.0.0.1 --peer-port 8642 --peer-submit "my discovery"
+
+# Cognitive navigation: "what relates to X?" (ranked, verified)
+PYTHONPATH=src python node/nod_node.py --navigate "cache aware energy" --axis most_verified --top-k 5
+```
+
+Public deployment (Docker + TLS guide): see [deploy/README.md](deploy/README.md).
+
 ## License
 
 MIT — see [LICENSE](LICENSE).

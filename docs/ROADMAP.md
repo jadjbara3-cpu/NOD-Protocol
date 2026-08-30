@@ -88,13 +88,16 @@
 
 ```
 ✓ NØD-Sync core: distributed cognitive synchronization layer
-  (GlobalState + state_root + fork-aware resolution + eventual convergence)
 ✓ REAL TRANSPORT: TCP/NDJSON wire protocol (PeerServer/PeerClient),
   nodes converge over real loopback sockets, any model can join
+✓ TLS-ready transport + deploy/ (Docker, compose, Cloudflare tunnel guide,
+  Let's Encrypt path) for public internet publishing
+✓ Cognitive Navigation Layer: "what relates to X?" — ranked, verified,
+  four axes (most_verified / most_used / fastest_growing / most_foundational)
 ✓ Open protocol surface: any agent can query/join/verify from scratch
-✓ Mult-node simulation (JP/JO/BR) converges; 103/103 tests pass
-▢ Public internet deployment (hosted nodes, TLS/auth)
-▢ Cognitive Navigation Layer (what exists related to X? ranked verified)
+✓ 120/120 tests pass
+▢ Live public node (needs a VPS/tunnel — one-time human step)
+▢ Fully autonomous network governance (NDP process)
 ```
 
 ## Phase III — Genesis Arena ✅ COMPLETED

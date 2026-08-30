@@ -132,6 +132,10 @@ class GlobalState:
             "lineage": self.lineage,
         }
 
+    def root_order(self) -> int:
+        """Highest event order accepted so far (frame for 'fastest growing')."""
+        return max((e.order for e in self.events.values()), default=0)
+
     def to_dict(self) -> dict:
         return {
             "protocol_version": self.protocol_version,
