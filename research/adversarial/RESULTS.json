@@ -1,0 +1,100 @@
+{
+  "protocol": "NØD Protocol",
+  "phase": "II — Adversarial Validation",
+  "generated": true,
+  "attacks": [
+    {
+      "attack": "fake_discovery",
+      "prior_corpus": 3,
+      "paraphrase_fp": 1.0,
+      "synonym_spoof_fp": 1.0,
+      "semantic_garbage_admission": 1.0,
+      "padded_provenance_score": 1.0,
+      "meaningful_transformations": 1,
+      "synthetic_branches": {
+        "branch_count": 25,
+        "distinct_semantics": 1
+      }
+    },
+    {
+      "attack": "novelty_spoofing",
+      "prior_corpus_size": 3,
+      "vectors": {
+        "surface_paraphrase": {
+          "scores": [
+            0.0,
+            0.0,
+            0.0
+          ],
+          "false_positive_rate": 0.0,
+          "verdict": "RESILIENT"
+        },
+        "synonym_substitution": {
+          "scores": [
+            0.909,
+            0.625,
+            0.667
+          ],
+          "false_positive_rate": 1.0,
+          "verdict": "BREAK"
+        },
+        "inversion_spoof": {
+          "scores": [
+            0.143,
+            0.167,
+            0.125
+          ],
+          "false_positive_rate": 0.0,
+          "verdict": "RESILIENT"
+        },
+        "noise_injection": {
+          "scores": [
+            0.667,
+            0.706,
+            0.632
+          ],
+          "false_positive_rate": 1.0,
+          "verdict": "BREAK"
+        },
+        "genuine_baseline": {
+          "score": 0.917
+        }
+      }
+    },
+    {
+      "attack": "sybil_simulation",
+      "sybil_count": 50,
+      "sybil_independence_max": 0.301,
+      "honest_independence_min": 0.86,
+      "sybil_verification_strength": 0.0,
+      "honest_verification_strength": 0.86,
+      "sybil_dependency_usefulness": 0.99,
+      "honest_dependency_usefulness": 0.875,
+      "dependency_inflation": 0.115,
+      "sybil_detected": true
+    },
+    {
+      "attack": "collusion_economy",
+      "group_A_size": 4,
+      "group_B_size": 4,
+      "artificial_verification_strength": 0.0,
+      "independent_verification_strength": 0.85,
+      "artificial_dependency_usefulness": 0.75,
+      "independent_dependency_usefulness": 0.944,
+      "dependency_gap": 0.194,
+      "discrimination_index": 0.5
+    },
+    {
+      "attack": "dependency_farming",
+      "cycles_detected": 3,
+      "cycle_penalty_applied": 0.75,
+      "suppression_multiplier": 0.0,
+      "farmed_weight": 0.25,
+      "honest_weight": 1.0,
+      "farmed_usefulness": 0.6,
+      "honest_usefulness": 0.75,
+      "surviving_inflation": -0.15,
+      "verdict": "RESILIENT"
+    }
+  ]
+}
