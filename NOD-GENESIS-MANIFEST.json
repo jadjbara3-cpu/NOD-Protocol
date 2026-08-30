@@ -38,6 +38,7 @@
       "tests/test_transport.py": "74e91961cbca7cea",
       "tests/test_arena.py": "86a27f2388cc4aee",
       "demo/run_demo.py": "5e212c76437d2439",
+      "demo/run_network_demo.py": "e11d0453028dc97e",
       "research/adversarial/suite_runner.py": "362bded095beb280",
       "research/adversarial/collusion_simulation.py": "a87ffb6e1bf30ef5",
       "research/adversarial/sybil_simulation.py": "ffd0f133049dc467",
