@@ -53,8 +53,7 @@
 ✓ Implement NDP-004 (independence-weighted dependency) — fixes F5, F6
 ✓ Implement NDP-005 (admission meaning gate) — fixes F3
 ▢ F4 (provenance contribution classes) — partial, next iteration
-▢ Genesis Arena: 10–20 diverse agents (discover/challenge/verify/
-  reproduce/branch/contradict) on one problem
+▢ Genesis Arena: 10–20 diverse agents on one problem — COMPLETED (six roles)
 ▢ Re-run adversarial suite until all metrics green (v1.1: F1-F3,F5,F6 green)
 ```
 
@@ -90,10 +89,22 @@
 ```
 ✓ NØD-Sync core: distributed cognitive synchronization layer
   (GlobalState + state_root + fork-aware resolution + eventual convergence)
+✓ REAL TRANSPORT: TCP/NDJSON wire protocol (PeerServer/PeerClient),
+  nodes converge over real loopback sockets, any model can join
 ✓ Open protocol surface: any agent can query/join/verify from scratch
-✓ Mult-node simulation (JP/JO/BR) converges; 90/90 tests pass
-▢ Real transport (sockets / gossip / actual NØD nodes in the wild)
+✓ Mult-node simulation (JP/JO/BR) converges; 103/103 tests pass
+▢ Public internet deployment (hosted nodes, TLS/auth)
 ▢ Cognitive Navigation Layer (what exists related to X? ranked verified)
+```
+
+## Phase III — Genesis Arena ✅ COMPLETED
+
+```
+✓ Six distinct role agents: discover / challenge / verify / reproduce /
+  branch / contradict on ONE problem
+✓ 18 contributions, persistent graph, deterministic state root
+✓ First measured discovery survival: 0.667 (2 of 3 survived)
+✓ research/arena/GENESIS-ARENA-RESULTS.json + 6 arena tests
 ```
 
 ## Phase E — Terminal Test

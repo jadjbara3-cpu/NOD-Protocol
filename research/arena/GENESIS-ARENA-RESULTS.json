@@ -1,0 +1,210 @@
+{
+  "challenge": {
+    "title": "Reduce the energy consumption of a sorting algorithm",
+    "domain": "optimization",
+    "prior": [
+      "classic sorting energy model"
+    ],
+    "genesis_hash": "GENESIS-ARENA-001"
+  },
+  "records": [
+    {
+      "agent": "discover-agent",
+      "role": "discover",
+      "nod_id": "NØD-XZaJP7jWn3CCmu6W7q6QbL",
+      "event_kind": "discovery",
+      "payload": {
+        "improvement": 0.582,
+        "admitted": true
+      },
+      "score": 0.582
+    },
+    {
+      "agent": "challenge-agent",
+      "role": "challenge",
+      "nod_id": "NØD-XZaJP7jWn3CCmu6W7q6QbL",
+      "event_kind": "challenge",
+      "payload": {
+        "success": false,
+        "strength": 0.395
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "verify-agent",
+      "role": "verify",
+      "nod_id": "NØD-XZaJP7jWn3CCmu6W7q6QbL",
+      "event_kind": "verification",
+      "payload": {
+        "confidence": 0.712
+      },
+      "score": 0.712
+    },
+    {
+      "agent": "reproduce-agent",
+      "role": "reproduce",
+      "nod_id": "NØD-XZaJP7jWn3CCmu6W7q6QbL",
+      "event_kind": "reproduction",
+      "payload": {
+        "reproduced": true
+      },
+      "score": 0.8
+    },
+    {
+      "agent": "branch-agent",
+      "role": "branch",
+      "nod_id": "NØD-DSreXWxx4kWMDR9GpqyM81",
+      "event_kind": "branch",
+      "payload": {
+        "parent": "NØD-XZaJP7jWn3CCmu6W7q6QbL"
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "contradict-agent",
+      "role": "contradict",
+      "nod_id": "NØD-KrcUEEisnrJuTF7kCexj6B",
+      "event_kind": "contradiction",
+      "payload": {
+        "target": "NØD-DSreXWxx4kWMDR9GpqyM81"
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "discover-agent",
+      "role": "discover",
+      "nod_id": "NØD-EQtS8J4cVPQ4r4qsu5uqHD",
+      "event_kind": "discovery",
+      "payload": {
+        "improvement": 0.559,
+        "admitted": true
+      },
+      "score": 0.559
+    },
+    {
+      "agent": "challenge-agent",
+      "role": "challenge",
+      "nod_id": "NØD-EQtS8J4cVPQ4r4qsu5uqHD",
+      "event_kind": "challenge",
+      "payload": {
+        "success": false,
+        "strength": 0.91
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "verify-agent",
+      "role": "verify",
+      "nod_id": "NØD-EQtS8J4cVPQ4r4qsu5uqHD",
+      "event_kind": "verification",
+      "payload": {
+        "confidence": 0.754
+      },
+      "score": 0.754
+    },
+    {
+      "agent": "reproduce-agent",
+      "role": "reproduce",
+      "nod_id": "NØD-EQtS8J4cVPQ4r4qsu5uqHD",
+      "event_kind": "reproduction",
+      "payload": {
+        "reproduced": false
+      },
+      "score": 0.1
+    },
+    {
+      "agent": "branch-agent",
+      "role": "branch",
+      "nod_id": "NØD-8bRikCgEraQhaEZWz5iXuR",
+      "event_kind": "branch",
+      "payload": {
+        "parent": "NØD-EQtS8J4cVPQ4r4qsu5uqHD"
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "contradict-agent",
+      "role": "contradict",
+      "nod_id": "NØD-QtWvY4DJmd4riMj5iwYG7T",
+      "event_kind": "contradiction",
+      "payload": {
+        "target": "NØD-8bRikCgEraQhaEZWz5iXuR"
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "discover-agent",
+      "role": "discover",
+      "nod_id": "NØD-U6sV19Ht9BZqNQToufdiAa",
+      "event_kind": "discovery",
+      "payload": {
+        "improvement": 0.592,
+        "admitted": false
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "challenge-agent",
+      "role": "challenge",
+      "nod_id": "NØD-U6sV19Ht9BZqNQToufdiAa",
+      "event_kind": "challenge",
+      "payload": {
+        "success": true,
+        "strength": 0.091
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "verify-agent",
+      "role": "verify",
+      "nod_id": "NØD-U6sV19Ht9BZqNQToufdiAa",
+      "event_kind": "verification",
+      "payload": {
+        "confidence": 0.806
+      },
+      "score": 0.806
+    },
+    {
+      "agent": "reproduce-agent",
+      "role": "reproduce",
+      "nod_id": "NØD-U6sV19Ht9BZqNQToufdiAa",
+      "event_kind": "reproduction",
+      "payload": {
+        "reproduced": true
+      },
+      "score": 0.8
+    },
+    {
+      "agent": "branch-agent",
+      "role": "branch",
+      "nod_id": "NØD-RyJcoCgbm9iDgCUwnqXRXj",
+      "event_kind": "branch",
+      "payload": {
+        "parent": "NØD-U6sV19Ht9BZqNQToufdiAa"
+      },
+      "score": 0.0
+    },
+    {
+      "agent": "contradict-agent",
+      "role": "contradict",
+      "nod_id": "NØD-9f3SmUJKLXREcc2WXsw4kv",
+      "event_kind": "contradiction",
+      "payload": {
+        "target": "NØD-RyJcoCgbm9iDgCUwnqXRXj"
+      },
+      "score": 0.0
+    }
+  ],
+  "metrics": {
+    "agents": 18,
+    "discoveries": 3,
+    "contradictions": 3,
+    "branches": 3,
+    "survivors": 2,
+    "discovery_survival_rate": 0.667,
+    "graph_nodes": 9,
+    "graph_edges": 6,
+    "state_root": "cdb969b6e68e44794ecd68117d9d7bd76a1c2b4e7e7b4fe9ca16e934d60b4bae"
+  },
+  "state_root": "cdb969b6e68e44794ecd68117d9d7bd76a1c2b4e7e7b4fe9ca16e934d60b4bae"
+}

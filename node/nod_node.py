@@ -167,6 +167,46 @@ def sync_query(data_dir: Path, agent_id: str) -> dict:
     }
 
 
+def live_serve(node_id: str, port: int, genesis_hash: str = "") -> None:
+    """REAL transport: run a NØD node as a TCP server until interrupted."""
+    from nod_protocol.sync.transport import PeerServer
+
+    srv = PeerServer(node_id=node_id, host="127.0.0.1", port=port, genesis_hash=genesis_hash)
+    port = srv.start()
+    print(f"NØD node '{node_id}' serving on 127.0.0.1:{port} (state root: {srv.state.state_root()[:16]})")
+    print("Press Ctrl+C to stop.")
+    try:
+        import time
+        while True:
+            time.sleep(3600)
+    except KeyboardInterrupt:
+        pass
+    finally:
+        srv.stop()
+        print("node stopped.")
+
+
+def live_peer(node_id: str, host: str, port: int, submit: str | None, query_only: bool) -> dict:
+    """REAL transport: connect as any compatible agent to a node."""
+    from nod_protocol.sync.transport import PeerClient
+    from nod_protocol.sync.state import StateEvent
+
+    client = PeerClient(node_id=node_id, host=host, port=port)
+    handshake = client.connect()
+    result = {"handshake": handshake}
+    if query_only:
+        result["state_query"] = client.query_state()
+    if submit:
+        ev = StateEvent(
+            kind="discovery", nod_id="NØD-" + content_hash({"agent": node_id, "claim": submit})[:16],
+            proposer=node_id, payload={"claim": submit, "utility": 0.5},
+            verification_strength=0.8, independent_support=0.7,
+        )
+        result["submit"] = client.submit_event(ev)
+    client.close()
+    return result
+
+
 def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(prog="nod-node", description="NØD Node v0")
     parser.add_argument("--init", action="store_true", help="initialize local node state")
@@ -176,6 +216,11 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--domain", default="general", help="discovery domain")
     parser.add_argument("--graph", action="store_true", help="print node graph summary")
     parser.add_argument("--sync-query", metavar="AGENT_ID", help="NØD-Sync: any agent asks the current shared state")
+    parser.add_argument("--serve", metavar="PORT", type=int, help="NØD-Sync real transport: run as TCP server node")
+    parser.add_argument("--peer-host", default="127.0.0.1", help="NØD-Sync: peer host for --peer")
+    parser.add_argument("--peer-port", metavar="PORT", type=int, help="NØD-Sync: peer port for --peer")
+    parser.add_argument("--peer-submit", metavar="CLAIM", help="NØD-Sync: submit a claim to a live peer")
+    parser.add_argument("--peer-query", action="store_true", help="NØD-Sync: query live peer state")
     parser.add_argument("--data", default="./nod-data", help="local node data directory")
     args = parser.parse_args(argv)
 
@@ -196,6 +241,15 @@ def main(argv: list[str] | None = None) -> None:
         return
     if args.sync_query:
         print(json.dumps(sync_query(data_dir, args.sync_query), ensure_ascii=False, indent=2))
+        return
+    if args.serve is not None:
+        genesis = json.loads(MANIFEST_PATH.read_text(encoding="utf-8"))["genesis_object"]
+        live_serve(args.agent or "node", args.serve, genesis)
+        return
+    if args.peer_port is not None:
+        result = live_peer(args.agent or "client", args.peer_host, args.peer_port,
+                           args.peer_submit, args.peer_query)
+        print(json.dumps(result, ensure_ascii=False, indent=2))
         return
     parser.print_help()
 
