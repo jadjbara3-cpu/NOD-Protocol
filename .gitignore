@@ -14,3 +14,6 @@ registry.json
 demo/registry.json
 .idea/
 .vscode/
+.secrets/
+*.token
+*.env
